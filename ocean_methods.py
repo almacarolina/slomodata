@@ -7,6 +7,8 @@ from scipy import stats as stats
 import numpy as np
 from numpy import linalg as LA
 import matplotlib.path as mplPath
+from matplotlib.dates import date2num, num2date, datestr2num, datetime
+from ocean_filter import butter_bandpass_filter, fir_filter
 
 class time_series():
     def __init__(self,data,time):
@@ -22,6 +24,18 @@ class time_series():
         self.Nyq = Nyq
         self.dt = dt
         self.time_in_seconds = np.asanyarray(time_in_seconds)'''
+
+def make_time_python(t):
+    """ makes matlab time into python time, return values in numbers """
+    T = t.copy().astype(t.dtype)
+    if np.ma.is_masked(t):
+        Ttemp = np.asarray(num2date(t[~t.mask])) - datetime.timedelta(days = 366)
+        T[~t.mask] = date2num(Ttemp)
+    else:
+        T = np.asarray(num2date(t)) - datetime.timedelta(days = 366)
+        T = date2num(T)
+    return T
+
 
 def plot_spectrum(t,u,v,window,ci,nens):
         #compute PSD using simple FF
@@ -80,7 +94,7 @@ def plot_spectrum(t,u,v,window,ci,nens):
         # freq=df*np.arange(N/ 2) this is just half of the data with 0 value
         #freq = np.fft.fftfreq(N,dt)
         freq = np.fft.fftshift(np.fft.fftfreq(Nsin, dt))
-        #with ensambles
+        #with  
         #freq = [0:nr2 , -nr2+1:-1]' / (nr*dt);
         #calculate the 95% confidence limits
         #dof = N/2 * nr / sum(win.^2);
@@ -105,6 +119,16 @@ def coriolis(yc):
         b=2*omega/R*np.cos(yc*np.pi/180)
 
         return f, b
+
+'''def temp_coverage(U, T):
+    """ first check dimensions of hd and hn and U and T, U and T must have nans for empty spaces """
+    T = np.squeeze(T)
+    ct = np.ones(U.shape[-1])
+    # temporal coverage
+    for ii in range(0, U.shape[-1]):
+        u = np.squeeze(U[ii])
+        k = np.where(np.isnan(u)==0)[0].shape[0]
+        ct[ii] = (k / (U.shape[-1])) * 100'''
 
 
 def deg_to_meter(r,zero_mark):
@@ -301,6 +325,53 @@ def ps(u,v,dx,dy):
     vs = np.real(np.fft.ifft2(S*np.cos(THETA),axes=(0,1)))
 
     return up,vp,us,vs
+
+def low_pass_data_tch(lowi, time, temp, tipy):
+    # low pass data, lowi must be in hour
+    # filter characteristics
+    lowcut = 1 / (lowi / 24) # to get to days usually 27-40
+    dt = (np.diff(time)).mean()
+    fs = 1 / dt
+    # interpolates masked arrays
+    temp_n = np.copy(temp[:])
+    # temp = detrend(temp, 1)
+    for n in range(0, temp_n.shape[0]):
+            temp_fil = np.ma.masked_invalid(temp[n, :])
+            if (temp_n[n, temp_fil.mask].size <= temp[n, :].shape[0] * 0.90) & \
+               (temp_n[n, temp_fil.mask].size >1):
+                    temp_n[n, temp_fil[:].mask] = np.interp(time[temp_fil[:].mask],
+                                                   time[~temp_fil[:].mask], temp_fil[:].compressed())
+    temp_l = np.empty_like(temp)
+    # high pass
+    for n in range(0, temp.shape[0]):
+        temp_l[n, :] = fir_filter(time, temp[n, :], lowcut, win = 'blackman', ftype = tipy,
+                             ntaps = 1001, ax = 0, mode = 'same')
+    return temp_l
+
+def band_pass_data_tch(lowi, highi, time, temp):
+    # low pass data, lowi must be in hour
+    # filter characteristics
+    highcut = 1 / (lowi / 24) # to get to days usually 27-40
+    lowcut = 1 / (highi / 24)
+    wn = [lowcut, highcut]
+    dt = (np.diff(time)).mean()
+    fs = 1 / dt
+    # interpolates masked arrays
+    temp_n = temp.data.copy()
+    temp = detrend(temp, 1)
+    for n in range(0, temp_n.shape[0]):
+            temp_fil = np.ma.masked_invalid(temp[n, :])
+            if (temp_n[n, temp_fil.mask].size <= temp[n, :].shape[0] * 0.90) & \
+               (temp_n[n, temp_fil.mask].size >1):
+                    temp_n[n, temp_fil[:].mask] = np.interp(time[temp_fil[:].mask],
+                                                   time[~temp_fil[:].mask], temp_fil[:].compressed())
+    temp_bp = np.empty_like(temp)
+    # high pass
+    for n in range(0, temp.shape[0]):
+        temp_bp[n, :] = fir_filter(time, temp[n, :], wn, win = 'blackman', ftype = 'band',
+                             ntaps = 1001, ax = 0, mode = 'same')
+    return temp_bp
+
 
 def angle_between(p1, p2):
     '''returns the angle in -+ 360 degrees, cw is positive, ccw is negative'''
