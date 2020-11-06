@@ -236,7 +236,7 @@ ax.text(736857.389417498, -40, '2018', fontsize=18)
 ax.text(737071.8243211883, -40, '2019', fontsize=18)
 ax.set_xticks([x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13])
 ax.set_xlim(fi1, fi2)
-plt.savefig('/Users/carolina/Dropbox/Seychelles_Paper_Alma/figure_6.pdf', bbox_inches='tight')
+8mammimi8
 
 mat = np.load('../../CORE/wind_model_obs.npz') # from read_CORE_data.py in SLOMO/CORE
 u_obs = mat['u_obs']
