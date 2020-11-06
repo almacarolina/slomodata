@@ -120,10 +120,11 @@ ax.axis([0.0050263297491194864,
  3.605515178223577e-05,
  0.38])
 
+colori = ['0000.6', '000.7', '000.8', 'w']
 plt.subplot(gs[0, 2])
 ax = plt.gca()
 vars = [tot_lf.mean(), tot_inertial.mean(), tot_tidal.mean(), tot_hf.mean()]
-plt.bar([1, 2, 3, 4], height=vars, color='steelblue', alpha=0.9)
+plt.bar([1, 2, 3, 4], height=vars, color=colori, edgecolor='k')
 ax.set_xticks([1, 2, 3, 4])
 ax.text(0.05, 1.01, 'b)',
         transform=ax.transAxes, fontsize=16)

@@ -4,4 +4,4 @@ Codes to process data from manuscript
 The file slomo_processing.py contaings all the modules needed to run the codes. Seawater and t_tide are also needed. 
 
 
-Alma Carolina Castillo Trujillo, Sep 2020
+Alma Carolina Castillo Trujillo, Nov 2020

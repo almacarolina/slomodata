@@ -89,6 +89,31 @@ def masked_interp_single(t, y):
     yn[y.mask] = np.interp(t[y.mask], t[~y.mask], y.compressed())
     return yn
 
+def make_time_good(U, T):
+    """interpolates into even time series U T,
+    U and V have to be already non NAN and time python format"""
+    T = np.squeeze(T)  # data has to be already in non matlab format
+    dt = np.nanmedian(np.diff(T))
+    t = T[0] + dt * np.arange(0, np.ceil(np.diff([T[0], T[-1]]) / dt))
+    if np.size(U.shape) == 2:
+        U_stretch = np.ma.zeros([len(t), U.shape[-1]])
+    elif np.size(U.shape) == 1:
+        U_stretch = np.ma.zeros(len(t))
+    else:
+        raise ValueError("ADCP data must only 2 or 1 dimensions")
+    for n in range(0, len(t)):
+        mix = abs(abs(t[n] - T))
+        v = np.min(mix)
+        j = np.where(v == mix)[0][0]
+        if v < dt / 2:
+            if np.size(U.shape) == 2:
+                U_stretch[n, :] = U[j, :]
+            else:
+                 U_stretch[n] = U[j]
+        print(str(n) + " " + "out of " + str(len(t)))
+    U_stretch = np.ma.masked_equal(U_stretch, 0)
+    return U_stretch, t
+
 
 # Filtering methods
 def plot_spectrum(t,u,v,window,ci,nens):
@@ -100,13 +125,13 @@ def plot_spectrum(t,u,v,window,ci,nens):
         if str(v)=='None':
                 u = np.ma.masked_invalid(u)
                 u[u.mask == True ] = 0
-                data =np.squeeze(np.asarray(detrend(u)))
+                data = np.squeeze(np.asarray(detrend(u)))
         else:
                 u = np.ma.masked_invalid(u)
                 v = np.ma.masked_invalid(v)
                 u[u.mask == True] = 0
                 v[v.mask == True] = 0
-                data =np.squeeze(np.asarray(detrend(u) + 1j * detrend(v))) #data
+                data = np.squeeze(np.asarray(detrend(u) + 1j * detrend(v))) #data
 
         if ci==None:
                 ci=95

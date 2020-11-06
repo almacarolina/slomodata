@@ -565,9 +565,11 @@ vsati = np.ma.masked_less(vsati, -50)
 ctop = ax.contourf(lon_sat, lat_sat, sati, levels_sat,
                     extend='both', cmap=colori)
 ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
-ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=0.5)
+ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.contour(lon_sat, lat_sat, sati, levels=np.arange(-10,12,2),
                     colors='k', linewidths=1, alpha=0.5)
+ax.contour(lon_sat, lat_sat, sati, [0],
+                    colors='k', linewidths=1.4, linestyles='solid', alpha=0.6)
 ax.set_title(tit_fig)
 ax.set(adjustable='box-forced', aspect='equal')
 ax.set_rasterized(True)
@@ -577,6 +579,7 @@ ax.text(0.03, 0.88, 'a)',
 ax.text(0.12, 1.17, 'northwest monsoon',
         transform=ax.transAxes, color='k', fontsize=16)
 
+plt.axis([42, 65, -18, 3])
 ax = axs[1,0]
 li = 10
 tit_fig = 'POP'
@@ -595,6 +598,8 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.contour(lon_pop, lat_pop, sati.mean(0), levels=np.arange(-10,12,2),
                     colors='k', linewidths=1, alpha=0.5)
+ax.contour(lon_pop, lat_pop, sati.mean(0), [0],
+                    colors='k', linewidths=1.4, linestyles='solid', alpha=0.6)
 ax.set(adjustable='box-forced', aspect='equal')
 ax.set_rasterized(True)
 ax.text(0.03, 0.88, 'e)',
@@ -619,6 +624,8 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.contour(lon_sat, lat_sat, sati, levels=np.arange(-10,12,2),
                     colors='k', linewidths=1, alpha=0.5)
+ax.contour(lon_sat, lat_sat, sati, [0],
+                    colors='k', linewidths=1.4, linestyles='solid', alpha=0.6)
 for c in lcs.collections:
   c.set_linestyle('solid')
 ax.set_title(tit_fig)
@@ -647,6 +654,8 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.contour(lon_pop, lat_pop, sati.mean(0), levels=np.arange(-10,12,2),
                     colors='k', linewidths=1, alpha=0.5)
+ax.contour(lon_pop, lat_pop, sati.mean(0), [0],
+                    colors='k', linewidths=1.4, linestyles='solid', alpha=0.6)
 for c in lcs.collections:
   c.set_linestyle('solid')
 # ax.set_title(tit_fig)
@@ -675,6 +684,8 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.contour(lon_sat, lat_sat, sati, levels=np.arange(-10,12,2),
                     colors='k', linewidths=1, alpha=0.5)
+ax.contour(lon_sat, lat_sat, sati, [0],
+                    colors='k', linewidths=1.4, linestyles='solid', alpha=0.6)
 for c in lcs.collections:
   c.set_linestyle('solid')
 ax.set_title(tit_fig)
@@ -702,6 +713,8 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.contour(lon_pop, lat_pop, sati.mean(0), levels=np.arange(-10,12,2),
                     colors='k', linewidths=1, alpha=0.5)
+ax.contour(lon_pop, lat_pop, sati.mean(0), [0],
+                    colors='k', linewidths=1.4, linestyles='solid', alpha=0.6)
 for c in lcs.collections:
   c.set_linestyle('solid')
 # ax.set_title(tit_fig)
@@ -730,6 +743,8 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.contour(lon_sat, lat_sat, sati, levels=np.arange(-10,12,2),
                     colors='k', linewidths=1, alpha=0.5)
+ax.contour(lon_sat, lat_sat, sati, [0],
+                    colors='k', linewidths=1.4, linestyles='solid', alpha=0.6)
 for c in lcs.collections:
   c.set_linestyle('solid')
 ax.set_title(tit_fig)
@@ -757,6 +772,8 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.contour(lon_pop, lat_pop, sati.mean(0), levels=np.arange(-10,12,2),
                     colors='k', linewidths=1, alpha=0.5)
+ax.contour(lon_pop, lat_pop, sati.mean(0), [0],
+                    colors='k', linewidths=1.4, linestyles='solid', alpha=0.6)
 for c in lcs.collections:
   c.set_linestyle('solid')
 # ax.set_title(tit_fig)

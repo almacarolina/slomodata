@@ -137,7 +137,7 @@ nombre = 'DJF'
 idxa = np.where((month == 12) | (month == 1) | (month == 2))[0]
 ax = axs[0,0]
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
-ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], linewidths=1, colors='k')
 ctop = ax.contourf(lon, lat, curl[idxa, :, :].mean(0),
                   cmap=colori, vmin=nimi, vmax=nimax, levels=levcurl, extend='both')
 #idxa = np.where((month_w == 12) | (month_w == 1) | (month_w == 2))[0]
@@ -163,7 +163,7 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 
 ax = axs[1,0]
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
-ax.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 ctop = ax.contourf(lon, lat, we[idxa, :, :].mean(0), levels=levwe,
                   cmap=colori2, extend='both')
 plt.axis([40, 70, -10, 4])
@@ -188,13 +188,13 @@ ctop = ax.contourf(lon, lat, mld_bfi,
 for c in ctop.collections:
     c.set_edgecolor("face")
     c.set_linewidth(0.000000000001)
+lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
+lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 sati = ssh[idxa].mean(0)
 CS = ax.contour(lon[0,:], lat[:,0], sati,
 	       levels=levels_sat, linewidths=0.6, alpha=0.6, colors='k', extend='min')
-ax.clabel(CS, CS.levels, fmt='%i', inline=True, fontsize=10)
+ax.clabel(CS, CS.levels, fmt='%i', inline=True, fontsize=12)
 ax.contour(lon, lat, mld_bfi * -1, [50], linewidths=1, colors='k')
-lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
-lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.set(adjustable='box-forced', aspect='equal')
 ax.text(0.03, 0.88, 'i)',
         transform=ax.transAxes, bbox=dict(facecolor='white',
@@ -209,7 +209,7 @@ lcs = ax.contour(lons, lats, etopo, [-200, -100, 0], colors='#606060', linewidth
 lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 ctop = ax.contourf(lon, lat, curl[idxa, :, :].mean(0),
                   cmap=colori, vmin=nimi, vmax=nimax, levels=levcurl, extend='both')
-ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 #idxa = np.where((month_w == 3) | (month_w == 4) | (month_w == 5))[0]
 Q = ax.quiver(lon[::li, ::li], lat[::li, ::li], taux[idxa, ::li, ::li].mean(0),
 			  tauy[idxa, ::li, ::li].mean(0),
@@ -231,7 +231,7 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 
 ax = axs[1,1]
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
-ax.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 ctop = ax.contourf(lon, lat, we[idxa, :, :].mean(0), levels=levwe,
                   cmap=colori2, extend='both')
 plt.axis([40, 70, -10, 4])
@@ -255,13 +255,13 @@ ctop = ax.contourf(lon, lat, mld_bfi,
 for c in ctop.collections:
     c.set_edgecolor("face")
     c.set_linewidth(0.000000000001)
+lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
+lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 sati = ssh[idxa].mean(0)
 CS = ax.contour(lon[0,:], lat[:,0], sati,
 	       levels=levels_sat, linewidths=0.6, alpha=0.6, colors='k', extend='min')
-ax.clabel(CS, CS.levels, fmt='%i', inline=True, fontsize=10)
+ax.clabel(CS, CS.levels, fmt='%i', inline=True, fontsize=12)
 ax.contour(lon, lat, mld_bfi * -1, [50], linewidths=1, colors='k')
-lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
-lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
 ax.set(adjustable='box-forced', aspect='equal')
 ax.text(0.03, 0.88, 'j)',
         transform=ax.transAxes, bbox=dict(facecolor='white',
@@ -278,7 +278,7 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 #                  cmap=colori, vmin=nimi, vmax=nimax)
 ctop = ax.contourf(lon, lat, curl[idxa, :, :].mean(0),
                   cmap=colori, vmin=nimi, vmax=nimax, levels=levcurl, extend='both')
-ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 # idxa = np.where((month_w == 6) | (month_w == 7) | (month_w == 8))[0]
 Q = ax.quiver(lon[::li, ::li], lat[::li, ::li], taux[idxa, ::li, ::li].mean(0),
 			  tauy[idxa, ::li, ::li].mean(0),
@@ -302,7 +302,7 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 
 ax = axs[1,2]
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
-ax.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 ctop = ax.contourf(lon, lat, we[idxa, :, :].mean(0), levels=levwe,
                   cmap=colori2, extend='both')
 plt.axis([40, 70, -10, 4])
@@ -327,12 +327,12 @@ for c in ctop.collections:
     c.set_edgecolor("face")
     c.set_linewidth(0.000000000001)
 sati = ssh[idxa].mean(0)
-CS = ax.contour(lon[0,:], lat[:,0], sati,
-	       levels=levels_sat, linewidths=0.6, alpha=0.6, colors='k', extend='min')
-ax.clabel(CS, CS.levels, fmt='%i', inline=True, fontsize=10)
-ax.contour(lon, lat, mld_bfi * -1, [50], linewidths=1, colors='k')
 lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
+CS = ax.contour(lon[0,:], lat[:,0], sati,
+	       levels=levels_sat, linewidths=0.6, alpha=0.6, colors='k', extend='min')
+ax.clabel(CS, CS.levels, fmt='%i', inline=True, fontsize=12)
+ax.contour(lon, lat, mld_bfi * -1, [50], linewidths=1, colors='k')
 ax.set(adjustable='box-forced', aspect='equal')
 ax.text(0.03, 0.88, 'k)',
         transform=ax.transAxes, bbox=dict(facecolor='white',
@@ -346,7 +346,7 @@ ax = axs[0,3]
 lcs = ax.contour(lons, lats, etopo, [-200, -100, 0], colors='#606060', linewidths=1)
 ctop = ax.contourf(lon, lat, curl[idxa, :, :].mean(0),
                   cmap=colori, vmin=nimi, vmax=nimax, levels=levcurl, extend='both')
-ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 # idxa = np.where((month_w == 9) | (month_w == 10) | (month_w == 11))[0]
 Q = ax.quiver(lon[::li, ::li], lat[::li, ::li], taux[idxa, ::li, ::li].mean(0),
@@ -372,7 +372,7 @@ qk = plt.quiverkey(Q, 0.88, 0.90, 0.1, r'0.1 $Pa$', labelpos='E',
 # fig.suptitle('ssh clim 1993-2009')
 ax1 = axs[1,3]
 lcs = ax1.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
-ax1.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax1.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 ctop2 = ax1.contourf(lon, lat, we[idxa, :, :].mean(0), levels=levwe,
                   cmap=colori2, extend='both')
 ax1.set(adjustable='box-forced', aspect='equal')
@@ -397,13 +397,12 @@ for c in ctop.collections:
     c.set_edgecolor("face")
     c.set_linewidth(0.000000000001)
 sati = ssh[idxa].mean(0)
-CS = ax2.contour(lon[0,:], lat[:,0], sati,
-	       levels=levels_sat, linewidths=0.6, alpha=0.6, colors='k', extend='min')
-ax2.clabel(CS, CS.levels, fmt='%i', inline=True, fontsize=10)
-ax2.contour(lon, lat, mld_bfi * -1, [50], linewidths=1, colors='k')
 lcs = ax2.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 lcs = ax2.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
-ax2.set(adjustable='box-forced', aspect='equal')
+CS = ax2.contour(lon[0,:], lat[:,0], sati,
+	       levels=levels_sat, linewidths=0.6, alpha=0.6, colors='k', extend='min')
+ax2.clabel(CS, CS.levels, fmt='%i', inline=True, fontsize=12)
+ax2.contour(lon, lat, mld_bfi * -1, [50], linewidths=1, colors='k')
 ax2.text(0.03, 0.88, 'l)',
         transform=ax2.transAxes, bbox=dict(facecolor='white',
          alpha=0.5), color='k', fontsize=14)
@@ -438,7 +437,7 @@ nombre = 'DJF'
 idxa = np.where((month == 12) | (month == 1) | (month == 2))[0]
 ax = axs[0,0]
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
-ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 ctop = ax.contourf(lon, lat, curl[idxa, :, :].mean(0),
                   cmap=colori, vmin=nimi, vmax=nimax, levels=levcurl, extend='both')
 #idxa = np.where((month_w == 12) | (month_w == 1) | (month_w == 2))[0]
@@ -464,7 +463,7 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 
 ax = axs[1,0]
 lcs = ax.contour(lons, lats, etopo * -1, [0, 200, 1000], colors='#606060', linewidths=1)
-ax.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, we[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 ctop = ax.contourf(lon, lat, we[idxa, :, :].mean(0), levels=levwe,
                   cmap=colori2, extend='both')
 plt.axis([40, 70, -10, 4])
@@ -489,7 +488,7 @@ lcs = ax.contourf(lons, lats, etopo, llevels, colors='#d2b466')
 #                  cmap=colori, vmin=nimi, vmax=nimax)
 ctop = ax.contourf(lon, lat, curl[idxa, :, :].mean(0),
                   cmap=colori, vmin=nimi, vmax=nimax, levels=levcurl, extend='both')
-ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=0.5)
+ax.contour(lon, lat, curl[idxa, :, :].mean(0), [0], colors='k', linewidths=1)
 #idxa = np.where((month_w == 3) | (month_w == 4) | (month_w == 5))[0]
 Q = ax.quiver(lon[::li, ::li], lat[::li, ::li], taux[idxa, ::li, ::li].mean(0),
 			  tauy[idxa, ::li, ::li].mean(0),

@@ -18,10 +18,10 @@ lin = 40
 mycmap = cm_xml.make_cmap('blue-red-sat-outer.xml')
 
 rcp['font.family'] = 'sans serif'
-rcp['font.size'] = 12.
-rcp['axes.labelsize'] = 16.
+rcp['axes.labelsize'] = 14.
 rcp['xtick.labelsize'] = 16.
 rcp['ytick.labelsize'] = 16.
+rcp['lines.linewidth'] = 2.
 rcp['lines.linewidth'] = 2.
 rcp['xtick.top'] = True
 rcp['xtick.labeltop'] = False
@@ -134,9 +134,9 @@ ax.text(0.02, 0.83, 'a)',
         transform=ax.transAxes, bbox=dict(facecolor='white',
          alpha=0.9), color='k', fontsize=14)
 ax.format_xdata = mpl.dates.DateFormatter('%b')
-ax.axvline(x = fi3, color='k', linestyle='-',lw=2)
-ax.axvline(x = fi4, color='k', linestyle='-',lw=2)
-ax.axvline(x = fi6, color='k', linestyle='-',lw=2)
+ax.axvline(x = fi3, color='k',linestyle='solid', lw=2, alpha=1)
+ax.axvline(x = fi4, color='k',linestyle='solid', lw=2, alpha=1)
+ax.axvline(x = fi6, color='k',linestyle='solid', lw=2, alpha=1)
 # ax.set_xlim(fi1, time_5e[-1])
 ax.set_ylim(22, 32)
 ax.set_ylabel(r'$[^oC]$')
@@ -193,9 +193,9 @@ ax2.set_ylabel(r'[rad/s $10^{-4}$]')
 ax2.set_ylim(0,0.0008)
 ax2.set_yticks(np.arange(0, 0.0008+0.0002, 0.0002))
 ax2.set_yticklabels(['0', '2','4','6'])
-ax2.axvline(x = fi3, color='k', linestyle='-',lw=2)
-ax2.axvline(x = fi4, color='k', linestyle='-',lw=2)
-ax2.axvline(x = fi6, color='k', linestyle='-',lw=2)
+ax2.axvline(x = fi3, color='k',linestyle='solid', lw=2, alpha=1)
+ax2.axvline(x = fi4, color='k',linestyle='solid', lw=2, alpha=1)
+ax2.axvline(x = fi6, color='k',linestyle='solid', lw=2, alpha=1)
 ax2.text(0.02, 0.83, 'b)',
         transform=ax2.transAxes, bbox=dict(facecolor='white',
          alpha=0.9), color='k', fontsize=14)
@@ -203,20 +203,20 @@ fig.subplots_adjust(hspace=0.05)
 ax.legend(loc='upper center', frameon=True, bbox_to_anchor=(0.79, 0.99), ncol=2)
 ax.format_xdata = mpl.dates.DateFormatter('%b')
 ax.xaxis.set_major_formatter(ax.format_xdata)
-ax.text(735968, 33.4, centerify("NW")) #33.5
-ax.text(735968-23, 32.6, centerify("monsoon")) #32.2
-ax.text(736152, 33.4, centerify("SE"))
-ax.text(736152-23, 32.6, centerify("monsoon"))
-ax.text(736334, 33.4, centerify("NW"))
-ax.text(736334-23, 32.6, centerify("monsoon"))
-ax.text(736520, 33.4, centerify("SE"))
-ax.text(736520-23, 32.6, centerify("monsoon"))
-ax.text(736698, 33.4, centerify("NW"))
-ax.text(736698-23, 32.6, centerify("monsoon"))
-ax.text(736880, 33.4, centerify("SE"))
-ax.text(736880-23, 32.6, centerify("monsoon"))
-ax.text(737065, 33.4, centerify("NW"))
-ax.text(737065-23, 32.6, centerify("monsoon"))
+ax.text(735968-11, 33.4, centerify("NW"), fontsize=13) # 86
+ax.text(735968-23-11, 32.6, centerify("monsoon"), fontsize=13) #77
+ax.text(736152-3, 33.4, centerify("SE"), fontsize=13)
+ax.text(736152-23-9, 32.6, centerify("monsoon"), fontsize=13)
+ax.text(736334-10, 33.4, centerify("NW"), fontsize=13)
+ax.text(736334-23-10, 32.6, centerify("monsoon"), fontsize=13)
+ax.text(736520-6, 33.4, centerify("SE"), fontsize=13)
+ax.text(736520-23-12, 32.6, centerify("monsoon"), fontsize=13)
+ax.text(736698-9, 33.4, centerify("NW"), fontsize=13)
+ax.text(736698-23-9, 32.6, centerify("monsoon"), fontsize=13)
+ax.text(736880-2, 33.4, centerify("SE"), fontsize=13)
+ax.text(736880-23-8, 32.6, centerify("monsoon"), fontsize=13)
+ax.text(737065-11, 33.4, centerify("NW"), fontsize=13)
+ax.text(737065-23-11, 32.6, centerify("monsoon"), fontsize=13)
 ax.set_rasterized(True)
 ax = axs[2]
 fi = datetime.datetime.strptime("01-03-2016", "%d-%m-%Y")
@@ -290,9 +290,9 @@ ax.text(736857.389417498, -32, '2018', fontsize=16)
 ax.text(737071.8243211883, -32, '2019', fontsize=16)
 ax.set_xticks([x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13])
 ax.set_ylabel('depth [m]')
-ax.axvline(fi3, color='k',linestyle='solid', lw=2)
-ax.axvline(fi4, color='k', linestyle='solid', lw=2)
-ax.axvline(fi6, color='k', linestyle='solid', lw=2)
+ax.axvline(fi3, color='k',linestyle='solid', lw=2, alpha=1)
+ax.axvline(fi4, color='k',linestyle='solid', lw=2, alpha=1)
+ax.axvline(fi6, color='k',linestyle='solid', lw=2, alpha=1)
 ax.plot(time_e[300], -4.96, ">", color='k', markersize=8)
 ax.plot(time_e[300], -8.32, ">", color='k', markersize=8)
 ax.plot(time_e[300], -11.68, ">", color='k',markersize=8)
